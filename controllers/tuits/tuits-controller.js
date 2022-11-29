@@ -1,13 +1,15 @@
-import posts from "./tuits.js";
-let tuits = posts;
+import * as tuitsDao from '../tuits/tuits-dao.js';
 
-const createTuit = (req, res) => {
+const createTuit = async (req, res) => {
     const newTuit = req.body;
-    tuits.push(newTuit);
-    res.json(newTuit);
+    newTuit.likes = 0;
+    newTuit.liked = false;
+    const insertedTuit = await tuitsDao.createTuit(newTuit);
+    res.json(insertedTuit);
 }
 
-const findTuits  = (req, res) => {
+const findTuits  = async (req, res) => {
+    const tuits = await tuitsDao.findTuits();
     res.json(tuits);
 }
 
@@ -22,7 +24,7 @@ const updateTuit = (req, res) => {
 
 }
 
-const deleteTuit = (req, res) => {
+const deleteTuit = async (req, res) => {
     const tuitdIdToDelete = req.params.tid;
     tuits = tuits.filter((t) =>
         t._id !== tuitdIdToDelete);
