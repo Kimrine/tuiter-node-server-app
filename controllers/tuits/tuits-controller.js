@@ -3,7 +3,6 @@ import * as tuitsDao from './tuits-dao.js';
 
 const createTuit = async (req, res) => {
     const newTuit = req.body;
-    newTuit._id =  mongoose.Types.ObjectId(newTuit._id);
     newTuit.likes = 0;
     newTuit.liked = false;
     newTuit.dislikes = 0;
