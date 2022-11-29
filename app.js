@@ -10,7 +10,12 @@ import mongoose from "mongoose";
 mongoose.connect("mongodb+srv://kimrine:xyf123456@cluster0.fff8dsx.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true});
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: true
+  //origin: 'http://localhost:3000'
+}));
+
 app.use(express.json());
 HelloController(app);
 UserController(app);
